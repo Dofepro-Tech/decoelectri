@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "entities": {
+    "User": {
+      "title": "User",
+      "type": "object",
+      "description": "Perfiles de usuarios con roles de cliente o administrador",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "cliente"] },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "email", "role"]
+    },
+    "GalleryProject": {
+      "title": "GalleryProject",
+      "type": "object",
+      "description": "Proyectos de la galería antes y después gestionables por el administrador",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string", "enum": ["electricidad", "pvc", "plomeria", "combo"] },
+        "location": { "type": "string" },
+        "description": { "type": "string" },
+        "beforeImage": { "type": "string" },
+        "afterImage": { "type": "string" },
+        "highlight": { "type": "string" },
+        "completionTime": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "location", "afterImage"]
+    },
+    "ServiceItem": {
+      "title": "ServiceItem",
+      "type": "object",
+      "description": "Servicios ofrecidos editables por el administrador",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string" },
+        "features": { "type": "array", "items": { "type": "string" } },
+        "startingPrice": { "type": "string" },
+        "popularBadge": { "type": "string" },
+        "bannerImage": { "type": "string" }
+      },
+      "required": ["id", "category", "title", "startingPrice"]
+    },
+    "QuoteRequest": {
+      "title": "QuoteRequest",
+      "type": "object",
+      "description": "Solicitudes de cotización enviadas por clientes y gestionables por el admin",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "phone": { "type": "string" },
+        "sector": { "type": "string" },
+        "serviceNeeded": { "type": "string" },
+        "budgetDOP": { "type": "number" },
+        "urgency": { "type": "string" },
+        "additionalDetails": { "type": "string" },
+        "status": { "type": "string", "enum": ["nueva", "en_contacto", "completada"] },
+        "createdAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["fullName", "phone", "sector", "serviceNeeded"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "type": "object",
+      "description": "Textos y configuraciones generales del sitio editables por el admin",
+      "properties": {
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "heroTitle": { "type": "string" },
+        "heroSubtitle": { "type": "string" },
+        "announcement": { "type": "string" }
+      }
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "type": "object",
+      "description": "Opiniones y testimonios reales de clientes con calificación de estrellas",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "sector": { "type": "string" },
+        "serviceCategory": { "type": "string" },
+        "rating": { "type": "number", "minimum": 1, "maximum": 5 },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "userId": { "type": "string" }
+      },
+      "required": ["name", "rating", "comment", "createdAt"]
+    },
+    "NotificationSubscription": {
+      "title": "NotificationSubscription",
+      "type": "object",
+      "description": "Tokens de registro FCM y suscripciones a promociones y presupuestos",
+      "properties": {
+        "id": { "type": "string" },
+        "token": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "topics": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deviceInfo": { "type": "string" }
+      },
+      "required": ["token", "createdAt"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "type": "object",
+      "description": "Proyectos o servicios marcados como favoritos por el usuario",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "targetId": { "type": "string" },
+        "targetType": { "type": "string", "enum": ["project", "service"] },
+        "title": { "type": "string" },
+        "image": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "targetId", "targetType", "title"]
+    },
+    "Note": {
+      "title": "Note",
+      "type": "object",
+      "description": "Notas personalizadas escritas por el usuario sobre un proyecto o servicio",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "targetId": { "type": "string" },
+        "targetType": { "type": "string", "enum": ["project", "service", "general"] },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Perfiles de usuarios con roles de cliente o administrador"
+    },
+    "/gallery/{projectId}": {
+      "schema": "GalleryProject",
+      "description": "Proyectos de la galería antes y después gestionables por el administrador"
+    },
+    "/services/{serviceId}": {
+      "schema": "ServiceItem",
+      "description": "Servicios ofrecidos editables por el administrador"
+    },
+    "/quoteRequests/{requestId}": {
+      "schema": "QuoteRequest",
+      "description": "Solicitudes de cotización enviadas por clientes y gestionables por el admin"
+    },
+    "/siteSettings/{settingId}": {
+      "schema": "SiteSettings",
+      "description": "Textos y configuraciones generales del sitio editables por el admin"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "Opiniones y testimonios reales de clientes satisfechos"
+    },
+    "/notificationSubscriptions/{subId}": {
+      "schema": "NotificationSubscription",
+      "description": "Suscripciones push FCM para avisos de promociones y presupuestos"
+    },
+    "/favorites/{favoriteId}": {
+      "schema": "Favorite",
+      "description": "Proyectos o servicios marcados como favoritos por el usuario"
+    },
+    "/notes/{noteId}": {
+      "schema": "Note",
+      "description": "Notas personalizadas escritas por el usuario"
+    }
+  }
+}

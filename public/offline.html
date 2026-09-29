@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decoelectric | Información Sin Conexión</title>
+  <meta name="theme-color" content="#003366">
+  <style>
+    :root {
+      --primary: #003366;
+      --primary-dark: #002244;
+      --gold: #FFD700;
+      --bg: #0a0f1d;
+      --card-bg: #131b2e;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+      --success: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 520px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #fbbf24;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      background: #002244;
+      padding: 4px;
+      border: 2px solid var(--gold);
+      display: block;
+      object-fit: cover;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    p.lead {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .info-card {
+      background: rgba(0, 51, 102, 0.25);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+    .info-card h2 {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.85rem;
+    }
+    .contact-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .contact-label {
+      color: var(--text-muted);
+    }
+    .contact-val {
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .btn-call {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0.875rem;
+      background: #10b981;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-call:hover {
+      background: #059669;
+    }
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .services-pill {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 0.5rem;
+    }
+    .pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+    }
+    .footer-note {
+      margin-top: 1.25rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">
+      <span class="dot"></span>
+      Modo Sin Conexión a Internet
+    </div>
+
+    <img src="/LogoPrincipal.png" alt="Decoelectric Logo" class="logo" onerror="this.style.display='none'">
+
+    <h1>Decoelectric</h1>
+    <p class="lead">
+      Tu dispositivo no tiene conexión a internet. Los datos básicos de la empresa y números de emergencia están listos para asistirte.
+    </p>
+
+    <div class="info-card">
+      <h2>⚡ Contacto Directo Telefónico</h2>
+      <div class="contact-item">
+        <span class="contact-label">WhatsApp / Ventas:</span>
+        <a href="tel:8093031738" class="contact-val" style="color: #38bdf8; text-decoration: none;">809-303-1738</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Oficina Técnica:</span>
+        <a href="tel:8093031730" class="contact-val" style="color: #38bdf8; text-decoration: none;">809-303-1730</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Emergencias 24/7:</span>
+        <a href="tel:8492648965" class="contact-val" style="color: #38bdf8; text-decoration: none;">849-264-8965</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Correo:</span>
+        <span class="contact-val">dofeprotech@gmail.com</span>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h2>📍 Ubicación & Cobertura</h2>
+      <div class="contact-item">
+        <span class="contact-label">Base Principal:</span>
+        <span class="contact-val">Santo Domingo Este, RD</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Horario Habitual:</span>
+        <span class="contact-val">Lun - Sáb: 8:00 AM - 6:00 PM</span>
+      </div>
+      <div style="margin-top: 0.75rem; text-align: left;">
+        <span class="contact-label" style="font-size: 0.75rem; display: block; margin-bottom: 4px;">Servicios Disponibles:</span>
+        <div class="services-pill">
+          <span class="pill">⚡ Electricidad Residencial</span>
+          <span class="pill">🪵 Paneles PVC Decorativos</span>
+          <span class="pill">🔧 Plomería</span>
+          <span class="pill">🛠️ Remodelación Integral</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="tel:8093031738" class="btn-call">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Llamar Directo a Decoelectric
+    </a>
+
+    <button onclick="window.location.reload()" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+      Reintentar Conexión
+    </button>
+
+    <p class="footer-note">
+      La aplicación se actualizará automáticamente en cuanto se restablezca la conexión a internet.
+    </p>
+  </div>
+
+  <script>
+    // Si la conexión vuelve, recargar automáticamente para cargar la app completa
+    window.addEventListener('online', function() {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>

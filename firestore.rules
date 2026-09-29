@@ -1,0 +1,89 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'dofeprotech@gmail.com' ||
+        request.auth.token.email == 'elsonidistaadnj@gmail.com' ||
+        request.auth.token.email == 'elsonidistadnj@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // User profiles collection
+    match /users/{userId} {
+      allow read: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Gallery projects: public read, admin write
+    match /gallery/{projectId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Services: public read, admin write
+    match /services/{serviceId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Site settings: public read, admin write
+    match /siteSettings/{settingId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Quote requests: clients can create and read their own, admin can read/manage all
+    match /quoteRequests/{requestId} {
+      allow create: if true;
+      allow read: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // Real client testimonials: public read, public submit with valid data, admin manage/delete
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow create: if request.resource.data.name is string &&
+                    request.resource.data.name.size() > 0 &&
+                    request.resource.data.comment is string &&
+                    request.resource.data.comment.size() > 0 &&
+                    request.resource.data.rating is number &&
+                    request.resource.data.rating >= 1 &&
+                    request.resource.data.rating <= 5;
+      allow update, delete: if isAdmin();
+    }
+
+    // FCM Notification subscriptions: users can register token, admin can read/manage all
+    match /notificationSubscriptions/{subId} {
+      allow read: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create, update: if true;
+      allow delete: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // Favorites collection: user can manage their own favorites
+    match /favorites/{favoriteId} {
+      allow read, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // Notes collection: user can manage their own notes
+    match /notes/{noteId} {
+      allow read, update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+  }
+}
