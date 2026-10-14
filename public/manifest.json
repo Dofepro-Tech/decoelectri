@@ -1,0 +1,38 @@
+{
+  "id": "/",
+  "name": "Decoelectric - Electricidad, Plomería y Paneles PVC",
+  "short_name": "Decoelectric",
+  "description": "Servicios expertos en electricidad residencial certificada, plomería y remodelación de techos y paredes con paneles PVC en Santo Domingo Este.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#003366",
+  "background_color": "#0a0e17",
+  "icons": [
+    {
+      "src": "/LogoPrincipal.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/LogoPrincipal.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

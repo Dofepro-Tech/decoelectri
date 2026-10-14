@@ -1,0 +1,6 @@
+{
+  "name": "Decoelectric",
+  "description": "Landing Page para Decoelectric - Especialistas en Electricidad Residencial, Paneles PVC Decorativos y Plomería en Santo Domingo Este.",
+  "requestFramePermissions": ["microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
